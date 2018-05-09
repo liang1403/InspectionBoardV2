@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Simple Spring Boot Application</title>
+   <!--<script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>-->
+</head>
+<body>
+<h1>Form</h1>
+<!--/*@thymesVar id="enrollee" type="com.example.demo.domain.Enrollee"*/-->
+<form th:method="${enrollee.getId()} != null ? PUT : POST" th:object="${enrollee}">
+    <p>First Field: <input type="text" th:field="*{lastname}" /></p>
+    <p>Second Field: <input type="text" th:field="*{name}" /></p>
+    <p>
+        <input type="reset" value="Reset" />
+        <button type="submit">Submit</button>
+    </p>
+</form>
+<!--<script>
+    $('form').submit(function(e) {
+        var json = {};
+        $(e.target).serializeArray().map(function(x){data[x.name] = x.value;});
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            url: e.target.action,
+            data: json, // serializes the form elements.
+            success: function(data)
+            {
+                alert(data); // show response from the PHP скрипт.
+            }
+        });
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+    });
+</script>-->
+</body>
+</html>
