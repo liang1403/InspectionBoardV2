@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ExamResultServiceImpl extends EntityServiceImpl<ExamResult, Integer> {
+public class ExamResultServiceImpl extends EntityServiceImpl<ExamResult, String> {
 
     @Autowired
     public ExamResultServiceImpl(ExamResultDao repo) {

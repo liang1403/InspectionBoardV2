@@ -24,7 +24,7 @@ public class EnrolleeController {
     }
 
     @GetMapping("/{id}")
-    public String get(@PathVariable("id") Integer id, Model model) {
+    public String get(@PathVariable("id") String id, Model model) {
         Enrollee enrollee = enrolleeService.get(id);
         model.addAttribute("enrollee", enrollee);
         return "enrollee";
@@ -38,14 +38,14 @@ public class EnrolleeController {
     }
 
     @PutMapping("/{id}")
-    public String update(@PathVariable("id") Integer id, @ModelAttribute("enrollee") Enrollee enrollee, Model model) {
+    public String update(@PathVariable("id") String id, @ModelAttribute("enrollee") Enrollee enrollee, Model model) {
         enrolleeService.save(enrollee);
         model.addAttribute("message", "Enrollee has been updated successfully.");
         return "enrollee";
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") Integer id, Model model) {
+    public String delete(@PathVariable("id") String id, Model model) {
         enrolleeService.delete(id);
         model.addAttribute("message", "Enrollee has been deleted successfully.");
         return "enrollee";

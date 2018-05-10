@@ -7,11 +7,10 @@ import java.util.List;
 
 @Service
 @Transactional
-public abstract class EntityServiceImpl<T, PK> {
+public abstract class EntityServiceImpl<T, PK> implements IEntityService<T, PK> {
 
     private JpaRepository<T, PK> repo;
 
-    //ыыыы
     public EntityServiceImpl(JpaRepository<T, PK> repo) {
         this.repo = repo;
     }

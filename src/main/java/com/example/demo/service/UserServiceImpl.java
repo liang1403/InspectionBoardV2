@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl extends EntityServiceImpl<User, Integer> implements IUserService {
+public class UserServiceImpl extends EntityServiceImpl<User, String> implements IUserService {
 
     @Autowired
     public UserServiceImpl(UserDao repo) {
