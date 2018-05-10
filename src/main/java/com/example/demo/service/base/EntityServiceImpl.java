@@ -11,6 +11,7 @@ public abstract class EntityServiceImpl<T, PK> {
 
     private JpaRepository<T, PK> repo;
 
+    //ыыыы
     public EntityServiceImpl(JpaRepository<T, PK> repo) {
         this.repo = repo;
     }
