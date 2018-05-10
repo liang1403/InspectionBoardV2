@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SpecialityServiceImpl extends EntityServiceImpl<Speciality, String> implements ISpecialityService {
+public class SpecialityServiceImpl extends EntityServiceImpl<Speciality, Integer> implements ISpecialityService {
 
     @Autowired
     public SpecialityServiceImpl(SpecialityDao repo) {

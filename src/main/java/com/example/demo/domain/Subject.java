@@ -3,6 +3,7 @@ package com.example.demo.domain;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -13,7 +14,9 @@ public class Subject {
 
     @Setter(AccessLevel.NONE)
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
+    @Column
     private String name;
 }

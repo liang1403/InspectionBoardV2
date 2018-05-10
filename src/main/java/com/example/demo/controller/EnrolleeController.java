@@ -7,8 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/enrollee")
+@SessionAttributes("enrollee")
 public class EnrolleeController {
 
     @Autowired
@@ -21,28 +24,28 @@ public class EnrolleeController {
     }
 
     @GetMapping("/{id}")
-    public String get(@PathVariable("id") String id, Model model) {
+    public String get(@PathVariable("id") Integer id, Model model) {
         Enrollee enrollee = enrolleeService.get(id);
-        model.addAttribute("enrollee", new Enrollee());
+        model.addAttribute("enrollee", enrollee);
         return "enrollee";
     }
 
     @PostMapping
-    public String save(Enrollee enrollee, Model model) {
+    public String save(@ModelAttribute("enrollee") Enrollee enrollee, Model model) {
         enrolleeService.save(enrollee);
         model.addAttribute("message", "Enrollee has been created successfully.");
-        return "enrollee";
+        return "redirect:/enrollee/" + enrollee.getId();
     }
 
-    @PutMapping
-    public String update(@RequestBody Enrollee enrollee, Model model) {
+    @PutMapping("/{id}")
+    public String update(@PathVariable("id") Integer id, @ModelAttribute("enrollee") Enrollee enrollee, Model model) {
         enrolleeService.save(enrollee);
         model.addAttribute("message", "Enrollee has been updated successfully.");
         return "enrollee";
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") String id, Model model) {
+    public String delete(@PathVariable("id") Integer id, Model model) {
         enrolleeService.delete(id);
         model.addAttribute("message", "Enrollee has been deleted successfully.");
         return "enrollee";

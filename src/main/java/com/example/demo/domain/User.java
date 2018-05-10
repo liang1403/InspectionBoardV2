@@ -3,6 +3,7 @@ package com.example.demo.domain;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -13,12 +14,18 @@ public class User {
 
     @Setter(AccessLevel.NONE)
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(generator="system-uuid")
+//    @GenericGenerator(name="system-uuid", strategy = "uuid2")
+    private Integer id;
 
+    @Column
     private String login;
 
+    @Column
     private String password;
 
     @ManyToOne
+    @JoinColumn(name = "role_id")
     private Role role;
 }

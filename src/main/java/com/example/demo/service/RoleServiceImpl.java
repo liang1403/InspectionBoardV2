@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RoleServiceImpl extends EntityServiceImpl<Role, String> implements IRoleService {
+public class RoleServiceImpl extends EntityServiceImpl<Role, Integer> implements IRoleService {
 
     @Autowired
     public RoleServiceImpl(RoleDao repo) {

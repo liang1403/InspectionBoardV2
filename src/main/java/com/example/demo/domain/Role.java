@@ -3,6 +3,7 @@ package com.example.demo.domain;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -11,10 +12,12 @@ import javax.persistence.*;
 @Table(name = "role")
 public class Role {
 
-    @Setter(AccessLevel.NONE)
     @Id
-    private String id;
+    @Setter(AccessLevel.NONE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
+    @Column
     private String name;
 }
 
