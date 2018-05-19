@@ -18,7 +18,7 @@ public class Role {
     @GenericGenerator(name="system-uuid", strategy = "uuid2")
     private String id;
 
-    @Column
+    @Column(unique = true)
     private String name;
 }
 

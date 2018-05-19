@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <!-- We support more than 40 localizations -->
+    <script type="text/ecmascript" th:src="@{/jqGrid/js/i18n/grid.locale-ua.js}"></script>
+    <!-- This is the Javascript file of jqGrid -->
+    <script type="text/ecmascript" th:src="@{/jqGrid/src/jquery.jqGrid.js}"></script>
+    <!-- This is the localization file of the grid controlling messages, labels, etc.
+    <!-- A link to a jQuery UI ThemeRoller theme, more than 22 built-in and many more custom -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!-- The link to the CSS that the grid needs -->
+    <link rel="stylesheet" type="text/css" media="screen" th:href="@{/jqGrid/css/ui.jqgrid-bootstrap.css}" />
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
+
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table id="grid"></table>
+<div id="pager"></div>
+<script type="text/javascript" th:src="@{/jqGridOptions.js}">
+
+</script>
+</body>
+</html>

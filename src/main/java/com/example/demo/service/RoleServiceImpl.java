@@ -14,4 +14,8 @@ public class RoleServiceImpl extends EntityServiceImpl<Role, String> implements 
     public RoleServiceImpl(RoleDao repo) {
         super(repo);
     }
+
+    public Role findByName(String roleName) {
+        return ((RoleDao)repo).findByName(roleName);
+    }
 }
