@@ -1,61 +1,38 @@
-/*$.extend($.jgrid.edit, {
-    ajaxEditOptions: {contentType: "application/json"},
-    mtype: 'PUT',
-    serializeEditData: function (data) {
-        delete data.oper;
-        return JSON.stringify(data);
+$.extend($.jgrid.defaults, {
+    styleUI: 'Bootstrap',
+    forceFit: true,
+    datatype: 'json',
+    gridview: true,
+    rowList: [5, 10, 20],
+    rownumbers: true,
+    serializeGridData: function (data) {
+        data.page--;
+        return data;
+    },
+    jsonReader: {
+        root: "content",
+        repeatitems: false,
+        records: "totalElements",
+        page: function(data) {
+            data.number++;
+            return data;
+        },
+        total: "totalPages"
     }
 });
-$.extend($.jgrid.del, {
-    mtype: 'DELETE',
-    serializeDelData: function () {
-        return "";
-    }
-});*/
 
+$.extend($.jgrid.ajaxOptions, {
+    contentType: "application/json"
+});
 
-var URL = '/enrollee/entities';
-var options = {
-    edit: true,
-    add: true,
-    del: false,
-    search: false
-};
-
-var editOptions = {
-    mtype: 'PUT',
-    contentType: "application/json",
-    datatype: 'json',
-    onclickSubmit: function (params, postdata) {
-        params.url = /enrollee/ + postdata.id;
-    }/*,
-     serializeEditData: function(data) {
-     delete data.oper;
-     return JSON.stringify(data);
-     }*/
-};
-var addOptions = {mtype: "POST"};
-var delOptions = {
-    mtype: 'DELETE',
-    onclickSubmit: function (params, postdata) {
-        params.url = /enrollee/ + postdata.id;
-    }
-};
 
 $("#grid")
     .jqGrid({
-        url: URL,
-        mType: 'GET',
-        datatype: 'json',
-        ajaxGridOptions: {contentType: 'application/json; charset=utf-8'},
-        styleUI: 'Bootstrap',
+        url: '/enrollee/entities',
+        caption: "Enrollee",
+        pager: '#pager',
+        height: '250',
         colModel: [
-            {
-                name: 'id', label: 'ID',
-                width: 40,
-                editable: true,
-                editoptions: {disabled: true, size: 5}
-            },
             {
                 name: 'lastname',
                 label: 'Lastname',
@@ -66,30 +43,38 @@ $("#grid")
             {
                 name: 'name',
                 label: 'Name',
-                width: 200},
+                width: 200
+            },
             {
                 name: 'surname',
                 label: 'Surname',
                 width: 80
             }
-        ],
-        caption: "Enrollee",
-        pager: '#pager',
-        viewrecords: true,
-        rowNum: 20,
-        height: '250',
-        serializeGridData: function (postData) {
-            if (typeof(postData.page) === "number") {
-                postData.page--;
-            }
-            return postData;
-        },
-        jsonReader: {
-            root: "content",
-            repeatitems: false,
-            records: "totalElements",
-            page: "number",
-            total: "totalPages"
-        }
+        ]
     })
-    .navGrid('#pager', options, editOptions, addOptions, delOptions);
+    .navGrid('#pager',
+        {
+            edit: true,
+            add: true,
+            del: false,
+            search: true
+        },
+        {
+            mtype: 'PUT',
+            onclickSubmit: function (params, postdata) {
+                params.url = /enrollee/ + postdata.grid_id;
+            },
+            serializeEditData: function (data) {
+                delete data.oper;
+                return JSON.stringify(data);
+            }
+        },
+        {
+            mtype: "POST"
+        },
+        {
+            mtype: 'DELETE',
+            onclickSubmit: function (params, postdata) {
+                params.url = /enrollee/ + postdata.grid_id;
+            }
+        });

@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IEntityService<T, PK> {
 
@@ -11,9 +12,7 @@ public interface IEntityService<T, PK> {
 
     T get(PK id);
 
-    boolean exists(PK id);
-
-    boolean update(PK id, T entity);
+    boolean update(PK id, Map<String, Object> changedFields);
 
     boolean delete(PK id);
 
