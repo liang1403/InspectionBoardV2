@@ -1,7 +1,7 @@
 package com.example.demo.domain;
 
-import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -9,13 +9,8 @@ import java.sql.Timestamp;
 @Data
 @Entity
 @Table(name = "application")
-public class Application {
-
-    @Setter(AccessLevel.NONE)
-    @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid2")
-    private String id;
+@EqualsAndHashCode(callSuper=true)
+public class Application extends Identified {
 
     @Column
     private Timestamp date;

@@ -1,22 +1,15 @@
 package com.example.demo.domain;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "user")
-public class User {
-
-    @Setter(AccessLevel.NONE)
-    @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid2")
-    private String id;
+@EqualsAndHashCode(callSuper=true)
+public class User extends Identified {
 
     @Column(unique = true)
     private String login;

@@ -9,10 +9,11 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "subject")
+@Table(name = "exam_result_state")
 @EqualsAndHashCode(callSuper=true)
-public class Subject extends Identified {
+public class ExamResultState extends Identified {
 
-    @Column
+    @Column(unique = true)
     private String name;
 }
+

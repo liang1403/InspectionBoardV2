@@ -1,23 +1,17 @@
 package com.example.demo.domain;
 
-import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "enrollee")
-public class Enrollee {
-
-    @Id
-    @Setter(AccessLevel.NONE)
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid2")
-    private String id;
+@EqualsAndHashCode(callSuper=true)
+public class Enrollee extends Identified {
 
     @Column
     private String surname;
@@ -37,6 +31,7 @@ public class Enrollee {
     @Column
     private short certificateAverageMark;
 
-    @OneToMany(mappedBy = "enrollee", fetch = FetchType.LAZY)
-    private List<ExamResult> examResults = new ArrayList<>();
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

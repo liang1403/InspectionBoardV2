@@ -1,6 +1,9 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.Identified;
 import com.example.demo.domain.User;
+import com.example.demo.domain.UserDetailsExtended;
+import com.example.demo.repository.EnrolleeDao;
 import com.example.demo.repository.RoleDao;
 import com.example.demo.repository.UserDao;
 import com.example.demo.service.base.EntityServiceImpl;
@@ -22,6 +25,9 @@ public class UserServiceImpl extends EntityServiceImpl<User, String> implements 
 
     @Autowired
     private RoleDao roleDao;
+
+    @Autowired
+    private EnrolleeDao enrolleeDao;
 
     private UserDao userDao;
 
@@ -52,7 +58,7 @@ public class UserServiceImpl extends EntityServiceImpl<User, String> implements 
 
     private void setDefaultRole(User user) {
         if(Objects.isNull(user.getRole())) {
-            user.setRole(roleDao.findByName("user"));
+            user.setRole(roleDao.findByName("ROLE_USER"));
         }
     }
 
@@ -64,6 +70,10 @@ public class UserServiceImpl extends EntityServiceImpl<User, String> implements 
         }
         String roleName = user.getRole().getName();
         Set<GrantedAuthority> roleAuthority = Collections.singleton(new SimpleGrantedAuthority(roleName));
-        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), roleAuthority);
+        Identified connectedEntity = null;
+        if (Objects.equals(roleName, "ROLE_USER")) {
+            connectedEntity = enrolleeDao.findByUserId(user.getId());
+        }
+        return new UserDetailsExtended(user.getLogin(), user.getPassword(), roleAuthority, connectedEntity);
     }
 }

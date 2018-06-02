@@ -25,6 +25,27 @@ $.extend($.jgrid.ajaxOptions, {
     contentType: "application/json"
 });
 
+function processForm( e ){
+    $.ajax({
+        url: e.action,
+        type: e.method,
+        contentType: "application/json",
+        data: $(this).serialize()
+    });
+
+    e.preventDefault();
+}
+
+$('form').submit( function() {
+    $.ajax({
+        url: e.action,
+        type: e.method,
+        contentType: "application/json",
+        data: $(this).serialize()
+    });
+
+    e.preventDefault();
+} );
 
 $("#grid")
     .jqGrid({
@@ -32,6 +53,7 @@ $("#grid")
         caption: "Enrollee",
         pager: '#pager',
         height: '250',
+        viewrecords: true,
         colModel: [
             {
                 name: 'lastname',
@@ -46,9 +68,12 @@ $("#grid")
                 width: 200
             },
             {
-                name: 'surname',
+                name: 'state',
                 label: 'Surname',
-                width: 80
+                width: 80,
+                editable: true,
+                edittype:"select",
+                editoptions:{value:"FE:FedEx;IN:InTime;TN:TNT;AR:ARAMEX"}
             }
         ]
     })
@@ -62,7 +87,7 @@ $("#grid")
         {
             mtype: 'PUT',
             onclickSubmit: function (params, postdata) {
-                params.url = /enrollee/ + postdata.grid_id;
+                params.url = '/enrollee/update/' + postdata.grid_id;
             },
             serializeEditData: function (data) {
                 delete data.oper;
@@ -70,11 +95,18 @@ $("#grid")
             }
         },
         {
-            mtype: "POST"
+            mtype: "POST",
+            onclickSubmit: function (params, postdata) {
+                params.url = '/enrollee/create';
+            },
+            serializeEditData: function (data) {
+                delete data.oper;
+                return JSON.stringify(data);
+            }
         },
         {
             mtype: 'DELETE',
             onclickSubmit: function (params, postdata) {
-                params.url = /enrollee/ + postdata.grid_id;
+                params.url = '/enrollee/delete/' + postdata.grid_id;
             }
         });

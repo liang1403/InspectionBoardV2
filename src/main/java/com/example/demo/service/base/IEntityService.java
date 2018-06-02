@@ -1,12 +1,15 @@
 package com.example.demo.service.base;
 
+import com.example.demo.domain.Identified;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public interface IEntityService<T, PK> {
+public interface IEntityService<T extends Identified, PK extends Serializable> {
 
     T create(T entity);
 
@@ -16,7 +19,7 @@ public interface IEntityService<T, PK> {
 
     boolean delete(PK id);
 
-    List<T> list();
+    List<T> getList();
 
     Page<T> getPage(Pageable pageable);
 }

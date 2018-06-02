@@ -1,83 +1,77 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.Identified;
 import com.example.demo.service.base.IEntityService;
-import com.mysql.jdbc.StringUtils;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
-public class EntityController<T> {
+public abstract class EntityController<T extends Identified> {
 
-    private IEntityService entityService;
+    protected IEntityService entityService;
 
     private Class<T> persistentClass;
 
+    private String entityName;
+
     public EntityController(IEntityService entityService) {
         this.entityService = entityService;
-        this.persistentClass = (Class<T>) ((ParameterizedType) getClass()
+        this.persistentClass = (Class<T>) ((ParameterizedType) this.getClass()
                 .getGenericSuperclass()).getActualTypeArguments()[0];
+        this.entityName = this.persistentClass.getSimpleName().toLowerCase();
     }
 
-    private String getEntityName() {
-        return this.persistentClass.getSimpleName();
-    }
+    @GetMapping(value = {"", "/{id}"})
+    public String get(@PathVariable(name = "id", required = false) String id, Model model)  {
+        T entity = null;
+        if(Objects.isNull(id)) {
+            try {
+                entity = this.persistentClass.newInstance();
+            }
+            catch (IllegalAccessException | InstantiationException ignored) {
+                // TODO: Logging...
+            }
+        } else {
+            entity = (T)entityService.get(id);
+        }
+        model.addAttribute(this.entityName, entity);
+        return this.entityName;
 
-    @GetMapping(value = {"/{id}", ""})
-    public String get(@PathVariable(name = "id", required = false) String id, Model model) throws IllegalAccessException, InstantiationException {
-        T enrollee = id != null ? (T)entityService.get(id) : this.persistentClass.newInstance();
-        model.addAttribute(this.getEntityName(), enrollee);
-        return this.getEntityName();
-
-    }
-
-    @GetMapping("/list")
-    public String getGridPage() {
-        return this.getEntityName() + "Grid";
     }
 
     @GetMapping("/entities")
     public @ResponseBody
-    Page<T> list(@RequestParam(value = "page", required = false) Integer page,
-                        @RequestParam(value = "rows", required = false) Integer rows,
-                        @RequestParam(value = "sidx", required = false) String sidx,
-                        @RequestParam(value = "sord", required = false) String sord) {
-        Sort.Direction direction = Sort.Direction.fromString(sord);
-        String column = !StringUtils.isNullOrEmpty(sidx) ? sidx : "lastname";
-        Sort sort = Sort.by(direction, column);
-        return entityService.getPage(PageRequest.of(page, rows, sort));
+    Page<T> list(GridPageRequest pageRequest) {
+        return entityService.getPage(pageRequest);
     }
 
     @PostMapping
-    public @ResponseBody
-    String create(@RequestBody T entity) {
+    public String add(T entity) {
         entityService.create(entity);
-        return ""; //"redirect:/" + ENROLLEE_VIEW + "/" + enrollee.getId();
+        return "redirect:/" + this.entityName + "/" + entity.getId();
     }
 
-    @PutMapping(value = "/{id}")
+    @PostMapping("/create")
     public @ResponseBody
-    String update(@PathVariable("id") String id, @RequestBody Map<String, Object> changedFields) {
-        if (entityService.update(id, changedFields)) {
-            return String.format("%s has been updated successfully.", this.getEntityName());
-        } else {
-            return String.format("No %s for ID " + id + " found.", this.getEntityName());
-        }
+    T create(@RequestBody T entity) {
+        return (T)entityService.create(entity);
     }
 
-    @DeleteMapping("/{id}")
+    @PutMapping("/update/{id}")
     public @ResponseBody
-    String delete(@PathVariable("id") String id) {
-        if (entityService.delete(id)) {
-            return String.format("%s has been deleted successfully.", this.getEntityName());
-        } else {
-            return String.format("No %s for ID " + id + " found.", this.getEntityName());
-        }
+    boolean update(@PathVariable("id") String id, @RequestBody Map<String, Object> changedFields) {
+        return entityService.update(id, changedFields);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public @ResponseBody
+    boolean delete(@PathVariable("id") String id) {
+        return entityService.delete(id);
     }
 }

@@ -1,12 +1,13 @@
 package com.example.demo.service.base;
 
+import com.example.demo.domain.Identified;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.Objects;
 
 @Service
 @Transactional
-public abstract class EntityServiceImpl<T, PK> implements IEntityService<T, PK> {
+public abstract class EntityServiceImpl<T extends Identified, PK extends Serializable> implements IEntityService<T, PK> {
 
     protected JpaRepository<T, PK> repo;
 
@@ -61,7 +62,7 @@ public abstract class EntityServiceImpl<T, PK> implements IEntityService<T, PK> 
         return repo.findAll(pageable);
     }
 
-    public List<T> list() {
+    public List<T> getList() {
         return repo.findAll();
     }
 
