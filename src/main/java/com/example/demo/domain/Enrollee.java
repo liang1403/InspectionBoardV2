@@ -32,6 +32,6 @@ public class Enrollee extends Identified {
     private short certificateAverageMark;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "userId", nullable = false)
     private User user;
 }

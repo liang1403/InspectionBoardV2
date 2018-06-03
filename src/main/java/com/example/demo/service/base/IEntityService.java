@@ -11,6 +11,8 @@ import java.util.Map;
 
 public interface IEntityService<T extends Identified, PK extends Serializable> {
 
+    T instantiateByJSON(Map<String, Object> entityFields);
+
     T create(T entity);
 
     T get(PK id);

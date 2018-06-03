@@ -15,7 +15,4 @@ public class Faculty extends Identified {
 
     @Column
     private String name;
-
-    @OneToMany(mappedBy = "faculty", fetch = FetchType.LAZY)
-    private Set<Speciality> specialities = new HashSet<>();
 }

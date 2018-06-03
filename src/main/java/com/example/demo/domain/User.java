@@ -18,6 +18,6 @@ public class User extends Identified {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "roleId")
     private Role role;
 }

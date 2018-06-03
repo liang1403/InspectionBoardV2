@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -20,18 +20,13 @@
     <link rel="stylesheet" type="text/css" media="screen" th:href="@{/jqGrid/css/ui.jqgrid-bootstrap.css}"/>
 
     <meta charset="UTF-8">
-    <title>Enrollee Panel</title>
+    <title>Admin Panel</title>
 </head>
 <body>
+<table id="grid"></table>
+<div id="pager"></div>
+<script type="text/javascript" th:src="@{/jqGridOptions.js}">
 
-<table id="exam_result_grid"></table>
-<div id="exam_result_pager"></div>
-
-<table id="application_grid"></table>
-<div id="application_pager"></div>
-
-<script defer type="text/javascript" th:src="@{/initial-setup.js}"></script>
-<script defer type="text/javascript" th:src="@{/exam-result-grid-settings.js}"></script>
-<script defer type="text/javascript" th:src="@{/application-grid-settings.js}"></script>
+</script>
 </body>
 </html>

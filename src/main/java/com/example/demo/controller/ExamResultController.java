@@ -4,6 +4,7 @@ import com.example.demo.config.AuthenticationUtilities;
 import com.example.demo.domain.Enrollee;
 import com.example.demo.domain.ExamResult;
 import com.example.demo.domain.ExamResultState;
+import com.example.demo.domain.Subject;
 import com.example.demo.service.interfaces.IExamResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,7 +34,7 @@ public class ExamResultController extends EntityController<ExamResult> {
     Page<ExamResult> list(GridPageRequest pageRequest) {
         Enrollee enrollee = AuthenticationUtilities.getCurrentEnrollee();
         if(Objects.nonNull(enrollee)) {
-            return examResultService.findByEnrolleeId(enrollee.getId(), pageRequest);
+            return examResultService.findAllByEnrolleeId(enrollee.getId(), pageRequest);
         }
         return super.list(pageRequest);
     }
@@ -42,5 +43,11 @@ public class ExamResultController extends EntityController<ExamResult> {
     public @ResponseBody
     List<ExamResultState> getExamResultStateList() {
         return examResultService.getExamResultStateList();
+    }
+
+    @GetMapping("/subjects")
+    public @ResponseBody
+    List<Subject> getSubjectList() {
+        return examResultService.getSubjectList();
     }
 }

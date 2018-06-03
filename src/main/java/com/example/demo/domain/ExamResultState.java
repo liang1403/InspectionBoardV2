@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "exam_result_state")
+@Table(name = "examResultState")
 @EqualsAndHashCode(callSuper=true)
 public class ExamResultState extends Identified {
 

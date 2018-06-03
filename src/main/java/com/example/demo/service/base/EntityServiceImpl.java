@@ -1,11 +1,16 @@
 package com.example.demo.service.base;
 
+import com.example.demo.config.DataTypeUtilities;
 import com.example.demo.domain.Identified;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -20,12 +25,29 @@ public abstract class EntityServiceImpl<T extends Identified, PK extends Seriali
 
     protected JpaRepository<T, PK> repo;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Autowired
+    private ObjectMapper mapper;
+
     private Class<T> persistentClass;
 
     public EntityServiceImpl(JpaRepository<T, PK> repo) {
         this.repo = repo;
         this.persistentClass = (Class<T>) ((ParameterizedType) getClass()
                 .getGenericSuperclass()).getActualTypeArguments()[0];
+    }
+
+    public T instantiateByJSON(Map<String, Object> entityFields) {
+        T entity = null;
+        try {
+            entity = this.persistentClass.newInstance();
+            this.setFieldsFromJSON(entity, entityFields);
+            this.create(entity);
+        } catch (IllegalAccessException | InstantiationException ignored) {
+        }
+        return entity;
     }
 
     @Transactional
@@ -71,8 +93,15 @@ public abstract class EntityServiceImpl<T extends Identified, PK extends Seriali
             try {
                 Field field = this.persistentClass.getDeclaredField(fieldName);
                 field.setAccessible(true);
+                Class fieldType = field.getType();
+                if (DataTypeUtilities.isUUID(value.toString())) {
+                    value = entityManager.getReference(fieldType, value);
+                } else {
+                    value = mapper.convertValue(value, fieldType);
+                }
                 field.set(entity, value);
-            } catch (NoSuchFieldException | IllegalAccessException ignored) {}
+            } catch (NoSuchFieldException | IllegalAccessException ignored) {
+            }
         });
     }
 }

@@ -5,11 +5,12 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Entity
 @Table(name = "speciality")
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 public class Speciality extends Identified {
 
     @Column
@@ -22,14 +23,14 @@ public class Speciality extends Identified {
     private BigDecimal certificateWeight;
 
     @ManyToOne
-    @JoinColumn(name = "faculty_id", nullable = false)
+    @JoinColumn(name = "facultyId", nullable = false)
     private Faculty faculty;
 
-//    @OneToMany
-//    @JoinTable(
-//            name = "subject_in_speciality",
-//            joinColumns = @JoinColumn(name = "speciality_id"),
-//            inverseJoinColumns = @JoinColumn(name = "subject_id")
-//    )
-//    private List<Subject> subjects;
+    @ManyToMany
+    @JoinTable(
+            name = "subject_in_speciality",
+            joinColumns = @JoinColumn(name = "speciality_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id")
+    )
+    private List<Subject> subjects;
 }

@@ -6,15 +6,20 @@ import com.example.demo.domain.User;
 import com.example.demo.service.interfaces.IEnrolleeService;
 import com.example.demo.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import static com.example.demo.config.Constants.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController {
+
+    static final String DEFAULT_USER_VIEW = "enrollee/panel";
+    static final String DEFAULT_ADMIN_VIEW = "admin/panel";
+    static final String LOGIN_VIEW = "login";
+    static final String REGISTRATION_VIEW = "registration";
 
     @Autowired
     private IUserService userService;
@@ -47,6 +52,6 @@ public class RegistrationController {
             return REGISTRATION_VIEW;
         }
         userService.loadUserByUsername(user.getLogin());
-        return "redirect:/" + ENROLLEE_VIEW + "/panel";
+        return "redirect:/" + DEFAULT_USER_VIEW;
     }
 }

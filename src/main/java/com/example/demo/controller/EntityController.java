@@ -59,8 +59,8 @@ public abstract class EntityController<T extends Identified> {
 
     @PostMapping("/create")
     public @ResponseBody
-    T create(@RequestBody T entity) {
-        return (T)entityService.create(entity);
+    T create(@RequestBody Map<String, Object> entityFields) {
+        return (T)entityService.instantiateByJSON(entityFields);
     }
 
     @PutMapping("/update/{id}")

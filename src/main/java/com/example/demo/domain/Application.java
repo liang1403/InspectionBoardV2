@@ -16,10 +16,10 @@ public class Application extends Identified {
     private Timestamp date;
 
     @ManyToOne
-    @JoinColumn(name = "enrollee_id", nullable = false)
+    @JoinColumn(name = "enrolleeId", nullable = false)
     private Enrollee enrollee;
 
     @ManyToOne
-    @JoinColumn(name = "speciality_id", nullable = false)
+    @JoinColumn(name = "specialityId", nullable = false)
     private Speciality speciality;
 }

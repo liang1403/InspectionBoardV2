@@ -7,22 +7,22 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "exam_result")
+@Table(name = "examResult")
 @EqualsAndHashCode(callSuper=true)
 public class ExamResult extends Identified {
 
     @Column
-    private short mark;
+    private Short mark;
 
     @ManyToOne
-    @JoinColumn(name = "subject_id", nullable = false)
+    @JoinColumn(name = "subjectId", nullable = false)
     private Subject subject;
 
     @ManyToOne
-    @JoinColumn(name = "enrollee_id", nullable = false)
+    @JoinColumn(name = "enrolleeId", nullable = false)
     private Enrollee enrollee;
 
     @ManyToOne
-    @JoinColumn(name = "state_id", nullable = false)
+    @JoinColumn(name = "stateId", nullable = false)
     private ExamResultState state;
 }
