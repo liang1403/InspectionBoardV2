@@ -3,29 +3,47 @@
 >
 <head>
     <meta charset="UTF-8">
-
-    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link th:href="@{/css/main.css}" rel="stylesheet">
-
     <title>Login</title>
 </head>
-<body>
-<div th:if="${param.error}">
-    Неверно введенные данные.
-</div>
-<div th:if="${param.logout}">
-    Вы вышли из системы.
-</div>
-<form id="form-login" th:action="@{/login}" method="post">
-    <div class="container">
-        <label for="username"><b>Логин:</b></label>
-        <input id="username" type="text" name="username" placeholder="Введите логин:" required>
 
-        <label for="password"><b>Пароль:</b></label>
-        <input id="password" type="password" name="password" placeholder="введите пароль:" required>
-
-        <button class="btn-primary" type="submit">Войти</button>
+<body class="grey">
+<div class="modal-form form-login container">
+    <div class="form-header">
+        <div class="avatar"><i class="fas fa-user"></i></div>
+        <h4 class="form-title">Вход в систему</h4>
     </div>
-</form>
+    <div class="container form-content">
+        <form id="form-login" th:action="@{/login}" method="post">
+            <div class="row form-group">
+                <input type="text" class="form-control" name="username" placeholder="Введите логин"
+                       required="required">
+            </div>
+            <div class="row form-group">
+                <input type="password" class="form-control" name="password" placeholder="Введите пароль"
+                       required="required">
+            </div>
+            <div class="row form-group button-wrapper">
+                <button type="submit" class="btn btn-lg btn-block login-btn">Войти</button>
+            </div>
+        </form>
+    </div>
+    <div class="row justify-content-center form-footer">
+        <a th:href="@{/registration}">У вас еще нет аккаунта? Регистрация.</a>
+    </div>
+</div>
 </body>
 </html>

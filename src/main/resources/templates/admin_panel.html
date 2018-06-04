@@ -17,16 +17,21 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.css">
-    <link rel="stylesheet" type="text/css" media="screen" th:href="@{/jqGrid/css/ui.jqgrid-bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" media="screen" th:href="@{/jqGrid/css/ui.jqgrid-bootstrap4.css}"/>
 
     <meta charset="UTF-8">
     <title>Admin Panel</title>
 </head>
 <body>
-<table id="grid"></table>
-<div id="pager"></div>
-<script type="text/javascript" th:src="@{/jqGridOptions.js}">
 
-</script>
+<table id="exam_result_grid"></table>
+<div id="exam_result_pager"></div>
+
+<table id="application_grid"></table>
+<div id="application_pager"></div>
+
+<script defer type="text/javascript" th:src="@{/initial-setup.js}"></script>
+<script defer type="text/javascript" th:src="@{/jqGrid/exam-result-grid-settings-admin.js}"></script>
+<script defer type="text/javascript" th:src="@{/jqGrid/application-grid-settings-admin.js}"></script>
 </body>
 </html>

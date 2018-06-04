@@ -9,17 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/login")
 public class LoginController {
 
-    static final String DEFAULT_USER_VIEW = "enrollee/panel";
-    static final String DEFAULT_ADMIN_VIEW = "admin/panel";
-    static final String LOGIN_VIEW = "login";
-    static final String REGISTRATION_VIEW = "registration";
+    private static final String DEFAULT_USER_VIEW = "enrollee/panel";
+    private static final String DEFAULT_ADMIN_VIEW = "admin/panel";
+    private static final String LOGIN_VIEW = "login";
 
     @GetMapping
-    public String getLoginPage() {
-        if(AuthenticationUtilities.isUserInRole("USER")) {
+    public String getRedirectPage() {
+        if (AuthenticationUtilities.isUserInRole("USER")) {
             return "redirect:/" + DEFAULT_USER_VIEW;
         }
-        if(AuthenticationUtilities.isUserInRole("ADMIN")) {
+        if (AuthenticationUtilities.isUserInRole("ADMIN")) {
             return "redirect:/" + DEFAULT_ADMIN_VIEW;
         }
         return LOGIN_VIEW;

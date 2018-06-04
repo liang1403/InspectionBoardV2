@@ -1,5 +1,7 @@
-package com.example.demo.domain;
+package com.example.demo.domain.extension;
 
+import com.example.demo.domain.Identified;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
@@ -11,9 +13,6 @@ public class UserDetailsExtended extends org.springframework.security.core.userd
         this.connectedEntity = connectedEntity;
     }
 
-    private Identified connectedEntity;
-
-    public Identified getConnectedEntity() {
-        return this.connectedEntity;
-    }
+    @Getter
+    private final Identified connectedEntity;
 }

@@ -20,7 +20,7 @@ $(function () {
                     editrules: {required: true},
                     edittype: 'select',
                     editoptions: {
-                        dataUrl: "/" + SERVICE_URL + "/subjects",
+                        dataUrl: "/subject/list",
                         buildSelect: $.fn.jqGrid.buildSelect
                     }
                 },
@@ -35,14 +35,7 @@ $(function () {
                     name: 'state',
                     label: 'State',
                     jsonmap: 'state.name',
-                    width: 200,
-                    editable: true,
-                    editrules: {required: true},
-                    edittype: 'select',
-                    editoptions: {
-                        dataUrl: "/" + SERVICE_URL + "/states",
-                        buildSelect: $.fn.jqGrid.buildSelect
-                    }
+                    width: 200
                 }
             ]
         },

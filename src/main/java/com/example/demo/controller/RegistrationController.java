@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.config.AuthenticationUtilities;
 import com.example.demo.domain.Enrollee;
 import com.example.demo.domain.User;
 import com.example.demo.service.interfaces.IEnrolleeService;
@@ -16,16 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/registration")
 public class RegistrationController {
 
-    static final String DEFAULT_USER_VIEW = "enrollee/panel";
-    static final String DEFAULT_ADMIN_VIEW = "admin/panel";
-    static final String LOGIN_VIEW = "login";
-    static final String REGISTRATION_VIEW = "registration";
+    private static final String DEFAULT_USER_VIEW = "enrollee/panel";
+    private static final String REGISTRATION_VIEW = "registration";
+
+    private final IUserService userService;
+
+    private final IEnrolleeService enrolleeService;
 
     @Autowired
-    private IUserService userService;
-
-    @Autowired
-    private IEnrolleeService enrolleeService;
+    public RegistrationController(IUserService userService, IEnrolleeService enrolleeService) {
+        this.userService = userService;
+        this.enrolleeService = enrolleeService;
+    }
 
     @ModelAttribute("enrollee")
     public Enrollee getEmptyObject() {
@@ -33,10 +34,7 @@ public class RegistrationController {
     }
 
     @GetMapping
-    public String getRegistrationPage() {
-        if(AuthenticationUtilities.isCurrentUserAuthenticated()) {
-            return "redirect:/" + DEFAULT_USER_VIEW;
-        }
+    public String getRedirectPage() {
         return REGISTRATION_VIEW;
     }
 

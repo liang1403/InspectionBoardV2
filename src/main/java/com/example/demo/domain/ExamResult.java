@@ -1,14 +1,16 @@
 package com.example.demo.domain;
 
+import com.example.demo.config.AuthenticationUtilities;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Data
 @Entity
 @Table(name = "examResult")
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 public class ExamResult extends Identified {
 
     @Column
@@ -25,4 +27,11 @@ public class ExamResult extends Identified {
     @ManyToOne
     @JoinColumn(name = "stateId", nullable = false)
     private ExamResultState state;
+
+    @PrePersist
+    public void setDefaults() {
+        if(Objects.isNull(enrollee)) {
+            this.setEnrollee(AuthenticationUtilities.getCurrentEnrollee());
+        }
+    }
 }

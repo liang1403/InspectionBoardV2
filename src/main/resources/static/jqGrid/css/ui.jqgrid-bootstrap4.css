@@ -607,8 +607,8 @@ div.tablediv > .table-bordered {
 	width:auto; 
 	height:auto;
 }
-.EditTable .FormData td { 
-	height:37px !important;
+.EditTable .FormData td {
+	line-height: 5px;
 }
 .ui-jqdialog-content td.EditButton {
 	text-align: right; 

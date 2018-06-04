@@ -16,21 +16,12 @@ $(function () {
                     name: 'subject',
                     label: 'Subject',
                     jsonmap: 'subject.name',
-                    width: 200,
-                    editable: true,
-                    editrules: {required: true},
-                    edittype: 'select',
-                    editoptions: {
-                        dataUrl: "/" + SERVICE_URL + "/subjects",
-                        buildSelect: $.fn.jqGrid.buildSelect
-                    }
+                    width: 200
                 },
                 {
                     name: 'mark',
                     label: 'Mark',
-                    width: 200,
-                    editable: true,
-                    editrules: {required: true}
+                    width: 200
                 },
                 {
                     name: 'state',
@@ -41,15 +32,15 @@ $(function () {
                     editrules: {required: true},
                     edittype: 'select',
                     editoptions: {
-                        dataUrl: "/" + SERVICE_URL + "/states",
+                        dataUrl: "/exam_result/states",
                         buildSelect: $.fn.jqGrid.buildSelect
                     }
                 }
             ]
         },
         {
-            add: true,
-            edit: false,
+            add: false,
+            edit: true,
             del: false,
             search: false
         }

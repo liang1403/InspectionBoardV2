@@ -17,7 +17,7 @@ public class Speciality extends Identified {
     private String name;
 
     @Column
-    private short placesQuantity;
+    private Short placesQuantity;
 
     @Column
     private BigDecimal certificateWeight;

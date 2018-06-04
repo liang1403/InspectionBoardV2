@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.example.demo.config.Constants.EXAM_RESULT_STATE_CONFIRMED;
+
 @Repository
 public interface SpecialityDao extends JpaRepository<Speciality, String> {
-
-    String EXAM_RESULT_STATE_CONFIRMED = "a333aabb-6686-11e8-afa7-444553544f53";
 
     @Query(value = "SELECT s.* FROM speciality s \n" +
             "JOIN subject_in_speciality sis\n" +

@@ -10,6 +10,4 @@ import org.springframework.stereotype.Repository;
 public interface ExamResultDao extends JpaRepository<ExamResult, String> {
 
     Page<ExamResult> findAllByEnrolleeId(String enrollee_id, Pageable pageable);
-
-    Long countByEnrolleeId(String enrollee_id);
 }

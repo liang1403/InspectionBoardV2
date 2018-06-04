@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.domain.extension;
 
 import com.mysql.jdbc.StringUtils;
 import org.springframework.data.domain.PageRequest;

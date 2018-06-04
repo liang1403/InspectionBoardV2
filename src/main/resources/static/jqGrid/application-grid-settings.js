@@ -20,7 +20,7 @@ $(function () {
                     editrules: {required: true},
                     edittype: 'select',
                     editoptions: {
-                        dataUrl: "/" + SERVICE_URL + "/specialities",
+                        dataUrl: "/speciality/list",
                         buildSelect: $.fn.jqGrid.buildSelect
                     }
                 },

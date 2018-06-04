@@ -1,4 +1,6 @@
 $(function () {
+    "use strict";
+
     $.ajaxSetup({
         contentType: "application/json",
         dataType: "json"
@@ -26,19 +28,19 @@ $(function () {
             var $grid = this;
             var GRID_SUFFIX = "_grid";
             var PAGER_SUFFIX = "_pager";
-
-            var SERVICE_URL = serviceUrl;
-            var GRID_SELECTOR = "#" + SERVICE_URL + GRID_SUFFIX;
-            var PAGER_SELECTOR = "#" + SERVICE_URL + PAGER_SUFFIX;
+            var GRID_ID = serviceUrl + GRID_SUFFIX;
+            var GRID_SELECTOR = "#" + GRID_ID;
+            var PAGER_ID = serviceUrl + PAGER_SUFFIX;
+            var PAGER_SELECTOR = "#" + PAGER_ID;
 
             var config = $.extend(true, {
-                url: "/" + SERVICE_URL + "/entities",
+                url: "/" + serviceUrl + "/entities",
                 pager: PAGER_SELECTOR
             }, gridConfig);
 
             var onclickSubmit = function (params, postdata) {
-                var id = postdata[GRID_SELECTOR + "_id"];
-                params.url = "/" + SERVICE_URL;
+                var id = postdata[GRID_ID + "_id"];
+                params.url = "/" + serviceUrl;
                 switch(params.mtype) {
                     case "POST":
                         params.url += "/create/";
@@ -53,35 +55,39 @@ $(function () {
             };
 
             var serializeEditData = function (data) {
-                delete data.oper;
                 delete data.id;
                 return JSON.stringify(data);
             };
 
-            $grid.jqGrid(config).navGrid(
+            return $grid.jqGrid(config).navGrid(
                 PAGER_SELECTOR,
                 pagerConfig,
                 {
                     mtype: "PUT",
                     onclickSubmit: onclickSubmit,
-                    serializeEditData: serializeEditData
+                    serializeEditData: serializeEditData,
+                    closeAfterEdit: true,
+                    recreateForm: true
                 },
                 {
                     mtype: "POST",
                     onclickSubmit: onclickSubmit,
-                    serializeEditData: serializeEditData
+                    serializeEditData: serializeEditData,
+                    closeAfterAdd: true,
+                    recreateForm: true
                 },
                 {
                     mtype: "DELETE",
                     onclickSubmit: onclickSubmit
                 }
-            )
+            );
         }
     });
 
     $.extend($.jgrid.defaults, {
         styleUI: 'Bootstrap4',
         iconSet: "Octicons",
+        width: 780,
         forceFit: true,
         datatype: 'json',
         gridview: true,
@@ -109,7 +115,7 @@ $(function () {
             var select = '<select>', i, l = data.length, item;
             for (i = 0; i < l; i++) {
                 item = data[i];
-                select += "<option value='" + item.id + "'>" + item.name + "</option>";
+                select += "<option value='" + (item.id || "") + "'>" + (item.name || "") + "</option>";
             }
             return select + '</select>';
         }

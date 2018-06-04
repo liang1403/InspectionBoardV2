@@ -1,13 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.config.AuthenticationUtilities;
-import com.example.demo.domain.Enrollee;
 import com.example.demo.domain.ExamResult;
 import com.example.demo.domain.ExamResultState;
-import com.example.demo.domain.Subject;
 import com.example.demo.repository.ExamResultDao;
 import com.example.demo.repository.ExamResultStateDao;
-import com.example.demo.repository.SubjectDao;
 import com.example.demo.service.base.EntityServiceImpl;
 import com.example.demo.service.interfaces.IExamResultService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,48 +12,38 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
+
+import static com.example.demo.config.Constants.EXAM_RESULT_STATE_NOT_CHECKED;
 
 @Service
 public class ExamResultServiceImpl extends EntityServiceImpl<ExamResult, String> implements IExamResultService {
 
-    @Autowired
-    private ExamResultStateDao examResultStateDao;
+    private final ExamResultStateDao examResultStateDao;
+
+    private final ExamResultDao examResultDao;
 
     @Autowired
-    private SubjectDao subjectDao;
-
-    private ExamResultDao examResultDao;
-
-    @Autowired
-    public ExamResultServiceImpl(ExamResultDao repo) {
+    public ExamResultServiceImpl(ExamResultDao repo, ExamResultStateDao examResultStateDao) {
         super(repo);
         this.examResultDao = repo;
+        this.examResultStateDao = examResultStateDao;
     }
 
     @Override
     public ExamResult create(ExamResult examResult) {
-        this.setDefaultOwner(examResult);
+        this.setDefaultState(examResult);
         return super.create(examResult);
     }
 
-    private void setDefaultOwner(ExamResult examResult) {
-        Enrollee enrollee = AuthenticationUtilities.getCurrentEnrollee();
-        if (Objects.isNull(enrollee)) {
-
-        }
-        examResult.setEnrollee(enrollee);
+    private void setDefaultState(ExamResult examResult) {
+        examResult.setState(examResultStateDao.getOne(EXAM_RESULT_STATE_NOT_CHECKED));
     }
 
     public Page<ExamResult> findAllByEnrolleeId(String enrollee_id, Pageable pageable) {
         return examResultDao.findAllByEnrolleeId(enrollee_id, pageable);
     }
 
-    public List<ExamResultState> getExamResultStateList() {
+    public List<ExamResultState> findAllExamResultStates() {
         return examResultStateDao.findAll();
-    }
-
-    public List<Subject> getSubjectList() {
-        return subjectDao.findAll();
     }
 }

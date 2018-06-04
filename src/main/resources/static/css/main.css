@@ -1,14 +1,94 @@
-.error{
-    color: red;
-    font-size: 20px;
+body.grey {
+    background: #717171;
 }
-.user{
-    color: blue;
-    font-size: 15px;
+
+.modal-form {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    color: #636363;
+    background: #fff;
+    border-radius: 5px;
 }
-table {
-    border-collapse: collapse;
+
+.modal-form .form-header {
+    position: relative;
+    text-align: center;
+    padding: 70px 35px 0;
 }
-table, th, td {
-    border: 1px solid black;
+
+.modal-form .form-content {
+    padding: 15px 35px;
+}
+
+.modal-form .form-footer {
+    text-align: center;
+    background: #ecf0f1;
+    border-top: 1px solid #e5e5e5;
+    padding: 15px;
+    border-radius: 0 0 5px 5px;
+    font-size: 14px;
+}
+
+.modal-form .form-footer a {
+    color: #999;
+}
+
+.modal-form .btn {
+    color: #fff;
+    border-radius: 4px;
+    background: #60c7c1;
+    text-decoration: none;
+    transition: all 0.4s;
+    line-height: normal;
+    border: none;
+}
+
+.modal-form .form-control,
+.modal-form .btn {
+    min-height: 40px;
+    border-radius: 3px;
+}
+
+.modal-form .btn:hover,
+.modal-form .btn:focus,
+.modal-form .btn:active {
+    background: #45aba6;
+    outline: none;
+}
+
+.modal-form .form-control:focus {
+    border-color: #70c5c0;
+}
+
+.modal-form .avatar {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    background: #60c7c1;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+}
+
+.modal-form.form-login {
+    max-width: 540px;
+}
+
+.modal-form.form-login .button-wrapper {
+    margin-top: 2rem;
+}
+
+.modal-form.form-registration .button-wrapper {
+    margin-top: 1rem;
 }
