@@ -10,15 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleServiceImpl extends EntityServiceImpl<Role, String> implements IRoleService {
 
-    private final RoleDao roleDao;
-
     @Autowired
     public RoleServiceImpl(RoleDao repo) {
         super(repo);
-        this.roleDao = repo;
-    }
-
-    public Role findByName(String name) {
-        return roleDao.findByName(name);
     }
 }

@@ -20,7 +20,7 @@ public class Speciality extends Identified {
     private Short placesQuantity;
 
     @Column
-    private BigDecimal certificateWeight;
+    private Double certificateWeight;
 
     @ManyToOne
     @JoinColumn(name = "facultyId", nullable = false)

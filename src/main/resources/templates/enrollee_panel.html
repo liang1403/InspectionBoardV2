@@ -14,16 +14,16 @@
     <script type="text/ecmascript" th:src="@{/jqGrid/js/i18n/grid.locale-ua.js}"></script>
     <script type="text/ecmascript" th:src="@{/jqGrid/src/jquery.jqGrid.js}"></script>
 
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.css">
 
     <link rel="stylesheet" th:href="@{/jqGrid/css/ui.jqgrid-bootstrap4.css}"/>
+    <link th:href="@{/css/main.css}" rel="stylesheet">
 
-    <script defer type="text/javascript" th:src="@{/initial-setup.js}"></script>
     <script defer type="text/javascript" th:src="@{/jqGrid/exam-result-grid-settings.js}"></script>
     <script defer type="text/javascript" th:src="@{/jqGrid/application-grid-settings.js}"></script>
+    <script defer type="text/javascript" th:src="@{/initial-setup.js}"></script>
 
     <meta charset="UTF-8">
     <title>Enrollee Panel</title>
@@ -32,16 +32,15 @@
 
 <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item">
-        <a class="nav-link active" href="#exam_result_tab" role="tab" data-toggle="tab">Exam Results</a>
+        <a class="nav-link" href="#exam_result_tab" role="tab" data-toggle="tab">Exam Results</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="#application_tab" role="tab" data-toggle="tab">Applications</a>
     </li>
 </ul>
 
-<!-- Tab panes -->
 <div class="tab-content">
-    <div role="tabpanel" class="tab-pane fade in active show" id="exam_result_tab">
+    <div role="tabpanel" class="tab-pane fade" id="exam_result_tab">
         <table id="exam_result_grid"></table>
         <div id="exam_result_pager"></div>
     </div>

@@ -24,7 +24,7 @@ $(function () {
             $form.preventDefault();
         },
 
-        initAJAXGrid: function(serviceUrl, gridConfig, pagerConfig) {
+        initAJAXGrid: function (serviceUrl, gridConfig, pagerConfig) {
             var $grid = this;
             var GRID_SUFFIX = "_grid";
             var PAGER_SUFFIX = "_pager";
@@ -41,7 +41,7 @@ $(function () {
             var onclickSubmit = function (params, postdata) {
                 var id = postdata[GRID_ID + "_id"];
                 params.url = "/" + serviceUrl;
-                switch(params.mtype) {
+                switch (params.mtype) {
                     case "POST":
                         params.url += "/create/";
                         break;
@@ -59,7 +59,7 @@ $(function () {
                 return JSON.stringify(data);
             };
 
-            return $grid.jqGrid(config).navGrid(
+            $grid = $grid.jqGrid(config).navGrid(
                 PAGER_SELECTOR,
                 pagerConfig,
                 {
@@ -81,13 +81,21 @@ $(function () {
                     onclickSubmit: onclickSubmit
                 }
             );
+
+            $(window).bind('resize', function() {
+                $grid.setGridWidth($(window).width());
+            }).trigger('resize');
+
+            return $grid;
         }
     });
 
     $.extend($.jgrid.defaults, {
         styleUI: 'Bootstrap4',
         iconSet: "Octicons",
-        width: 780,
+        autowidth: true,
+        responsive: true,
+        altRows: true,
         forceFit: true,
         datatype: 'json',
         gridview: true,
@@ -120,4 +128,9 @@ $(function () {
             return select + '</select>';
         }
     });
+
+    /**
+     * INIT GRID ON FIRST TAB
+     */
+    $('.nav-tabs a:first').tab('show');
 });

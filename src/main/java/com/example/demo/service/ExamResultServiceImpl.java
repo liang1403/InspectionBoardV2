@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.example.demo.config.Constants.EXAM_RESULT_STATE_NOT_CHECKED;
-
 @Service
 public class ExamResultServiceImpl extends EntityServiceImpl<ExamResult, String> implements IExamResultService {
 
@@ -27,16 +25,6 @@ public class ExamResultServiceImpl extends EntityServiceImpl<ExamResult, String>
         super(repo);
         this.examResultDao = repo;
         this.examResultStateDao = examResultStateDao;
-    }
-
-    @Override
-    public ExamResult create(ExamResult examResult) {
-        this.setDefaultState(examResult);
-        return super.create(examResult);
-    }
-
-    private void setDefaultState(ExamResult examResult) {
-        examResult.setState(examResultStateDao.getOne(EXAM_RESULT_STATE_NOT_CHECKED));
     }
 
     public Page<ExamResult> findAllByEnrolleeId(String enrollee_id, Pageable pageable) {

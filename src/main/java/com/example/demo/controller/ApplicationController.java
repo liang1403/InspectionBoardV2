@@ -46,7 +46,7 @@ public class ApplicationController extends EntityController<Application> {
             if (DataTypeUtilities.isUUID(speciality_id)) {
                 Speciality speciality = specialityService.get(speciality_id);
                 if (Objects.nonNull(speciality)) {
-                    return applicationService.findAllBySpecialityId(
+                    return applicationService.findAllBySpecialityIdOrderByPoint(
                             speciality_id, speciality.getPlacesQuantity(), pageRequest);
                 }
             }

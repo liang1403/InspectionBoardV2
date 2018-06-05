@@ -24,7 +24,7 @@ public class ApplicationServiceImpl extends EntityServiceImpl<Application, Strin
         return applicationDao.findAllByEnrolleeId(enrollee_id, pageable);
     }
 
-    public Page<Application> findAllBySpecialityId(String speciality_id, Short limit, Pageable pageable) {
-        return applicationDao.findAllBySpecialityId(speciality_id, limit, pageable);
+    public Page<Application> findAllBySpecialityIdOrderByPoint(String speciality_id, Short limit, Pageable pageable) {
+        return applicationDao.findAllBySpecialityIdOrderByPoint(speciality_id, limit, pageable);
     }
 }

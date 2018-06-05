@@ -29,18 +29,19 @@ public class SpecialityController extends EntityController<Speciality> {
     @Override
     public @ResponseBody
     List<Speciality> getList() {
+        List<Speciality> specialities = new ArrayList<>();
+        specialities.add(new Speciality());
+
         if (AuthenticationUtilities.isUserInRole("USER")) {
             Enrollee enrollee = AuthenticationUtilities.getCurrentEnrollee();
             if (Objects.nonNull(enrollee)) {
-                return specialityService.findAllByEnrolleeId(enrollee.getId());
+                specialities.addAll(specialityService.findAllByEnrolleeId(enrollee.getId()));
             }
         }
         if (AuthenticationUtilities.isUserInRole("ADMIN")) {
-            List<Speciality> specialities = new ArrayList<>();
-            specialities.add(new Speciality());
             specialities.addAll(super.getList());
-            return specialities;
         }
-        return Collections.emptyList();
+
+        return specialities;
     }
 }

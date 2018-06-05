@@ -1,9 +1,11 @@
 package com.example.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -27,7 +29,7 @@ public class Enrollee extends Identified {
     private String phone;
 
     @Column
-    private short certificateAverageMark;
+    private Short certificateAverageMark;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "userId", nullable = false)

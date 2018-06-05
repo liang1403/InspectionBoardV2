@@ -1,3 +1,8 @@
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
 body.grey {
     background: #717171;
 }
@@ -91,4 +96,38 @@ body.grey {
 
 .modal-form.form-registration .button-wrapper {
     margin-top: 1rem;
+}
+
+.nav-tabs {
+    background: #202124;
+    padding: 20px 20px 0;
+    color: #fff
+}
+
+.nav-tabs a{
+    color: #fff;
+}
+
+.tab-content{
+    height: calc(100% - 62px);
+}
+
+.tab-pane,
+.ui-jqgrid {
+    height: 100%;
+}
+
+.ui-jqgrid-view,
+.ui-jqgrid .ui-jqgrid-bdiv {
+    overflow-x: hidden!important;
+    height: calc(100% - 50px)!important;
+}
+
+.ui-jqgrid .ui-jqgrid-caption {
+    display: none;
+}
+
+.ui-jqgrid .ui-jqgrid-pager {
+    position: absolute;
+    bottom: 0;
 }

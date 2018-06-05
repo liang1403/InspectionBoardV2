@@ -9,5 +9,5 @@ public interface IApplicationService extends IEntityService<Application, String>
 
     Page<Application> findAllByEnrolleeId(String enrollee_id, Pageable pageable);
 
-    Page<Application> findAllBySpecialityId(String speciality_id, Short limit, Pageable pageable);
+    Page<Application> findAllBySpecialityIdOrderByPoint(String speciality_id, Short limit, Pageable pageable);
 }

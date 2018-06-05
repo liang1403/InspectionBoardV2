@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import com.example.demo.domain.listeners.UserEntityListener;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user")
 @EqualsAndHashCode(callSuper = true)
+@EntityListeners(UserEntityListener.class)
 public class User extends Identified {
 
     @Column(unique = true)
