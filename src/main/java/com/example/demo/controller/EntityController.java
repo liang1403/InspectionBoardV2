@@ -61,24 +61,18 @@ public abstract class EntityController<T extends Identified> {
     }
 
     @PostMapping
-    public String add(T entity) {
-        entityService.create(entity);
-        return "redirect:/" + this.entityName + "/" + entity.getId();
-    }
-
-    @PostMapping("/create")
     public @ResponseBody
     T create(@RequestBody Map<String, Object> entityFields) {
         return (T)entityService.instantiateByJSON(entityFields);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public @ResponseBody
     boolean update(@PathVariable("id") String id, @RequestBody Map<String, Object> changedFields) {
         return entityService.update(id, changedFields);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public @ResponseBody
     boolean delete(@PathVariable("id") String id) {
         return entityService.delete(id);

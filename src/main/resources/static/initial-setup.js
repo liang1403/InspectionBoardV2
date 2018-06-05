@@ -41,16 +41,8 @@ $(function () {
             var onclickSubmit = function (params, postdata) {
                 var id = postdata[GRID_ID + "_id"];
                 params.url = "/" + serviceUrl;
-                switch (params.mtype) {
-                    case "POST":
-                        params.url += "/create/";
-                        break;
-                    case "PUT":
-                        params.url += "/update/" + id;
-                        break;
-                    case "DELETE":
-                        params.url += "/delete/" + id;
-                        break;
+                if (params.mtype === "PUT" || params.mtype === "DELETE") {
+                    params.url += "/" + id;
                 }
             };
 
@@ -82,7 +74,7 @@ $(function () {
                 }
             );
 
-            $(window).bind('resize', function() {
+            $(window).bind('resize', function () {
                 $grid.setGridWidth($(window).width());
             }).trigger('resize');
 
