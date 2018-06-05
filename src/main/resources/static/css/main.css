@@ -131,3 +131,21 @@ body.grey {
     position: absolute;
     bottom: 0;
 }
+
+.error-h1-wrapper{
+    margin-top: 0px;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-h1{
+    text-align: center;
+    font-size: 100px;
+}
+
+.error-h1 span{
+    color: #45eefe;
+}

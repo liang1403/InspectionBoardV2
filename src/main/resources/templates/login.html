@@ -44,6 +44,10 @@
     <div class="row justify-content-center form-footer">
         <a th:href="@{/registration}">У вас еще нет аккаунта? Регистрация.</a>
     </div>
+    <!--incalid login-->
+    <div th:if="${param.error}">
+        Неверно введенные данные.
+    </div>
 </div>
 </body>
 </html>
